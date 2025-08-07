@@ -23,7 +23,12 @@
     "type": "git",
     "url": "git+https://github.com/matttelliott/bookmarker-ai.git"
   },
-  "keywords": ["bookmarks", "ai", "typescript", "monorepo"],
+  "keywords": [
+    "bookmarks",
+    "ai",
+    "typescript",
+    "monorepo"
+  ],
   "author": "Matt Elliott",
   "license": "UNLICENSED",
   "bugs": {
@@ -33,5 +38,9 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.0",
+    "typescript": "^5.9.2"
   }
 }
