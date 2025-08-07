@@ -1,0 +1,37 @@
+{
+  "name": "bookmarker-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A comprehensive bookmarking platform with AI-powered features for organizing, discovering, and sharing web content.",
+  "workspaces": [
+    "apps/*",
+    "packages/node/*",
+    "packages/browser/*",
+    "packages/universal/*"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matttelliott/bookmarker-ai.git"
+  },
+  "keywords": ["bookmarks", "ai", "typescript", "monorepo"],
+  "author": "Matt Elliott",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/matttelliott/bookmarker-ai/issues"
+  },
+  "homepage": "https://github.com/matttelliott/bookmarker-ai#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
