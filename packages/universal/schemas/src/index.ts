@@ -1,5 +1,5 @@
 // Export Result type utilities
-export * from './result';
+export * from './result'
 
 // Future exports will include:
 // - Zod schemas for all domain models

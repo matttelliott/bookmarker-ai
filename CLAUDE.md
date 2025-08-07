@@ -1,21 +1,26 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
+repository.
 
 ## Project Overview
 
-Bookmarker-AI is a comprehensive bookmarking platform with AI-powered features, built as a TypeScript monorepo containing multiple applications and shared packages.
+Bookmarker-AI is a comprehensive bookmarking platform with AI-powered features, built as a
+TypeScript monorepo containing multiple applications and shared packages.
 
 ## 🔴 CRITICAL: Test-Driven Development (TDD)
 
-**This project strictly follows TDD principles. NO production code is written without a failing test first.**
+**This project strictly follows TDD principles. NO production code is written without a failing test
+first.**
 
 ### TDD Workflow - ALWAYS FOLLOW
+
 1. **RED**: Write a failing test that defines the desired behavior
 2. **GREEN**: Write the minimum code needed to make the test pass
 3. **REFACTOR**: Improve the code while keeping tests green
 
 ### Testing Rules
+
 - **NEVER write implementation code without a failing test first**
 - **Every new feature starts with a test**
 - **Every bug fix starts with a test that reproduces the bug**
@@ -25,6 +30,7 @@ Bookmarker-AI is a comprehensive bookmarking platform with AI-powered features, 
 - **In test files and test files only, prefer using type assertions over conditional logic**
 
 ### Test File Organization
+
 ```
 packages/[package-name]/
 ├── src/
@@ -37,6 +43,7 @@ e2e/
 ## Commands
 
 ### Testing Commands (Use These First!)
+
 ```bash
 # Run all tests to ensure nothing is broken
 npm run test
@@ -58,6 +65,7 @@ npm run test:coverage
 ```
 
 ### Development Commands
+
 ```bash
 # Start API development server (after tests are written)
 npm run dev:api -w @bookmarker/api
@@ -76,6 +84,7 @@ npm run typecheck
 ```
 
 ### Database Commands
+
 ```bash
 # Run migrations
 npm run db:migrate -w @bookmarker/api
@@ -90,11 +99,12 @@ npm run db:seed -w @bookmarker/api
 ## Architecture
 
 ### Monorepo Structure
+
 ```
 bookmarker-ai/
 ├── apps/
 │   ├── api/           # NestJS backend API
-│   ├── web/           # Angular web application  
+│   ├── web/           # Angular web application
 │   ├── extension/     # Firefox-first browser extension (Angular-based)
 │   └── cli/           # nest-commander CLI tool
 ├── packages/
@@ -123,16 +133,16 @@ bookmarker-ai/
 ```typescript
 // ❌ WRONG: Validation throws on bad data
 function validateBookmark(data: unknown): Bookmark {
-  return BookmarkSchema.parse(data); // throws ZodError
+  return BookmarkSchema.parse(data) // throws ZodError
 }
 
 // ✅ RIGHT: Parsing returns a Result type
 function parseBookmark(data: unknown): Result<Bookmark, ParseError> {
-  const result = BookmarkSchema.safeParse(data);
+  const result = BookmarkSchema.safeParse(data)
   if (result.success) {
-    return { ok: true, value: result.data };
+    return { ok: true, value: result.data }
   }
-  return { ok: false, error: new ParseError(result.error) };
+  return { ok: false, error: new ParseError(result.error) }
 }
 
 // ✅ RIGHT: Parsing with defaults and coercion
@@ -140,8 +150,8 @@ const BookmarkInputSchema = z.object({
   url: z.string().url(),
   title: z.string().min(1).default('Untitled'),
   tags: z.array(z.string()).default([]),
-  isPublic: z.coerce.boolean().default(false)
-});
+  isPublic: z.coerce.boolean().default(false),
+})
 ```
 
 ### 2. Zod-First Model Definition
@@ -157,37 +167,37 @@ export const BookmarkSchema = z.object({
   tags: z.array(z.string()),
   metadata: z.record(z.unknown()),
   createdAt: z.date(),
-  updatedAt: z.date()
-});
+  updatedAt: z.date(),
+})
 
 // 2. Derive TypeScript type
-export type Bookmark = z.infer<typeof BookmarkSchema>;
+export type Bookmark = z.infer<typeof BookmarkSchema>
 
 // 3. Derive database entity
 export type BookmarkEntity = z.infer<typeof BookmarkSchema> & {
-  _table: 'bookmarks';
-};
+  _table: 'bookmarks'
+}
 
 // 4. Derive component props
 export const BookmarkCardPropsSchema = BookmarkSchema.pick({
   url: true,
   title: true,
-  tags: true
+  tags: true,
 }).extend({
   onEdit: z.function().optional(),
-  onDelete: z.function().optional()
-});
+  onDelete: z.function().optional(),
+})
 
-export type BookmarkCardProps = z.infer<typeof BookmarkCardPropsSchema>;
+export type BookmarkCardProps = z.infer<typeof BookmarkCardPropsSchema>
 
 // 5. Derive API DTOs
 export const CreateBookmarkSchema = BookmarkSchema.omit({
   id: true,
   createdAt: true,
-  updatedAt: true
-});
+  updatedAt: true,
+})
 
-export const UpdateBookmarkSchema = CreateBookmarkSchema.partial();
+export const UpdateBookmarkSchema = CreateBookmarkSchema.partial()
 ```
 
 ### 3. Graceful Data Handling
@@ -196,11 +206,11 @@ export const UpdateBookmarkSchema = CreateBookmarkSchema.partial();
 // Parse external data with fallbacks
 export function parseExternalBookmark(data: unknown): Bookmark {
   const parsed = ExternalBookmarkSchema.safeParse(data);
-  
+
   if (parsed.success) {
     return parsed.data;
   }
-  
+
   // Handle partial data gracefully
   const partial = PartialBookmarkSchema.safeParse(data);
   if (partial.success && partial.data.url) {
@@ -210,7 +220,7 @@ export function parseExternalBookmark(data: unknown): Bookmark {
       title: partial.data.title || extractTitleFromUrl(partial.data.url)
     };
   }
-  
+
   // Return safe default
   return defaultBookmark();
 }
@@ -260,7 +270,7 @@ const output = match(result)
    - Prefer immutable operations
    - Use Result/Either types for error handling
 
-5. **Package Organization**: 
+5. **Package Organization**:
    - `node/`: Server-side only code
    - `browser/`: Client-side only code
    - `universal/`: Isomorphic code (schemas, types, utils)
@@ -268,6 +278,7 @@ const output = match(result)
 ## TDD Examples with Parsing
 
 ### Example: API Endpoint with Parsing
+
 ```typescript
 // STEP 1: Write test for parsing behavior
 describe('POST /api/v1/bookmarks', () => {
@@ -279,7 +290,7 @@ describe('POST /api/v1/bookmarks', () => {
         title: '',  // empty title
         tags: ['JavaScript', 'javascript', ' testing '] // duplicates
       });
-    
+
     expect(response.status).toBe(201);
     expect(response.body).toMatchObject({
       url: 'https://example.com/path', // normalized
@@ -292,7 +303,7 @@ describe('POST /api/v1/bookmarks', () => {
     const response = await request(app.getHttpServer())
       .post('/api/v1/bookmarks')
       .send({ url: 'https://example.com' }); // minimal data
-    
+
     expect(response.status).toBe(201);
     expect(response.body).toMatchObject({
       url: 'https://example.com',
@@ -305,7 +316,7 @@ describe('POST /api/v1/bookmarks', () => {
 // STEP 2: Implement parsing schema
 export const CreateBookmarkInputSchema = z.object({
   url: z.string().trim().toLowerCase().url(),
-  title: z.string().trim().optional().transform(val => 
+  title: z.string().trim().optional().transform(val =>
     val || extractTitleFromUrl(url)
   ),
   tags: z.array(z.string().trim().toLowerCase())
@@ -325,6 +336,7 @@ async create(@Body() data: unknown) {
 ```
 
 ### Example: Component with Parsed Props
+
 ```typescript
 // STEP 1: Test component handles various prop shapes
 describe('BookmarkCard', () => {
@@ -335,14 +347,14 @@ describe('BookmarkCard', () => {
       tags: ['test'],
       onEdit: jest.fn()
     };
-    
+
     const { getByText } = render(<BookmarkCard {...props} />);
     expect(getByText('Example')).toBeInTheDocument();
   });
 
   it('should handle minimal props gracefully', () => {
     const props = { url: 'https://example.com' };
-    
+
     const { getByText } = render(<BookmarkCard {...props} />);
     expect(getByText('example.com')).toBeInTheDocument(); // fallback title
   });
@@ -351,10 +363,10 @@ describe('BookmarkCard', () => {
 // STEP 2: Component uses parsed props
 export function BookmarkCard(props: unknown) {
   const parsed = BookmarkCardPropsSchema.safeParse(props);
-  const bookmark = parsed.success 
-    ? parsed.data 
+  const bookmark = parsed.success
+    ? parsed.data
     : createDefaultBookmarkProps(props);
-    
+
   return (
     <div className="card">
       <h3>{bookmark.title || getDomainFromUrl(bookmark.url)}</h3>
@@ -374,7 +386,7 @@ export function BookmarkCard(props: unknown) {
 
 ### Testing Best Practices
 
-1. **Test Parsing Behavior**: 
+1. **Test Parsing Behavior**:
    - Test that malformed data is handled gracefully
    - Test that defaults are applied correctly
    - Test that coercion works as expected
@@ -399,7 +411,7 @@ export function BookmarkCard(props: unknown) {
 - **Result Types**: Return Result<T, E> instead of throwing
 - **Pattern Matching**: Use ts-pattern to handle all cases
 - **Functional Style**: Use lodash-fp for data transformation
-- **Function Naming**: 
+- **Function Naming**:
   - Use imperative mood for most functions (e.g., `parseBookmark`, `validateUser`, `fetchData`)
   - Only capitalize factory functions that construct typed objects (e.g., `Success()`, `Failure()`)
   - Very few capitalized functions - reserve for Result types and similar constructs
@@ -428,4 +440,7 @@ export function BookmarkCard(props: unknown) {
 - Minimum 80% code coverage
 - E2E tests run on staging environment
 - No code deploys without passing tests
+
+```
+
 ```

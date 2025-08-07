@@ -14,14 +14,14 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
-    
+
     // Module Resolution
     "module": "ESNext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    
+
     // Emit
     "target": "ES2022",
     "lib": ["ES2022"],
@@ -30,30 +30,23 @@
     "sourceMap": true,
     "removeComments": false,
     "importHelpers": true,
-    
+
     // JavaScript Support
     "allowJs": false,
     "checkJs": false,
-    
+
     // Interop Constraints
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "exactOptionalPropertyTypes": true,
-    
+
     // Skip Lib Check
     "skipLibCheck": true,
-    
+
     // Composite Projects
     "composite": true,
     "incremental": true
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "coverage",
-    ".next",
-    "out"
-  ]
+  "exclude": ["node_modules", "dist", "build", "coverage", ".next", "out"]
 }

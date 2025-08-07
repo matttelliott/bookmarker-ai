@@ -3,6 +3,7 @@
 ## Project Setup
 
 ### Initial Configuration
+
 - [ ] Initialize npm workspace with `npm init -w`
 - [ ] Create workspace structure (apps/, packages/, e2e/)
 - [ ] Set up TypeScript configuration for monorepo
@@ -12,6 +13,7 @@
 - [ ] Configure TailwindCSS with DaisyUI
 
 ### Package Structure
+
 - [ ] Create packages/universal/schemas for Zod schemas
 - [ ] Create packages/universal/types for derived types
 - [ ] Create packages/universal/utils with lodash-fp setup
@@ -23,6 +25,7 @@
 - [ ] Create packages/browser/storage for browser storage
 
 ### Applications Scaffold
+
 - [ ] Initialize NestJS API in apps/api
 - [ ] Initialize Angular app in apps/web
 - [ ] Initialize browser extension in apps/extension
@@ -30,6 +33,7 @@
 - [ ] Set up E2E test structure in e2e/
 
 ### Core Schemas and Parsing (TDD)
+
 - [ ] Write tests for BookmarkSchema parsing behavior
 - [ ] Implement BookmarkSchema with transforms and defaults
 - [ ] Write tests for TagSchema parsing and normalization
@@ -42,6 +46,7 @@
 - [ ] Implement parsing helper functions
 
 ### Database Setup
+
 - [ ] Configure Supabase connection
 - [ ] Create database migrations from Zod schemas
 - [ ] Set up database seeding scripts
@@ -49,6 +54,7 @@
 - [ ] Implement repository with parsed results
 
 ### API Development (TDD)
+
 - [ ] Write tests for bookmark creation with data parsing
 - [ ] Implement bookmark controller with safeParse
 - [ ] Write tests for bookmark update with partial data
@@ -59,6 +65,7 @@
 - [ ] Implement auth with parsed tokens
 
 ### Web App Foundation (TDD)
+
 - [ ] Write tests for BookmarkCard with various props
 - [ ] Implement BookmarkCard with prop parsing
 - [ ] Write tests for BookmarkForm validation
@@ -69,6 +76,7 @@
 - [ ] Implement list with parsed query params
 
 ### AI Personas (TDD)
+
 - [ ] Write tests for persona configuration parsing
 - [ ] Implement persona base class with safeParse
 - [ ] Write tests for tag suggestion parsing
@@ -77,6 +85,7 @@
 - [ ] Implement batch with error recovery
 
 ### Scrapers (TDD)
+
 - [ ] Write tests for scraper data parsing
 - [ ] Implement base scraper with data normalization
 - [ ] Write tests for Reddit data parsing
@@ -89,6 +98,7 @@
 - [ ] Implement Twitter scraper with coercion
 
 ### Browser Extension (TDD)
+
 - [ ] Set up Firefox WebExtensions configuration
 - [ ] Write tests for page metadata extraction
 - [ ] Implement extraction with parsing
@@ -99,6 +109,7 @@
 - [ ] Connect to API with parsed responses
 
 ### CLI Tool (TDD)
+
 - [ ] Write tests for CLI argument parsing
 - [ ] Implement command parser with Zod
 - [ ] Write tests for bookmark add command
@@ -109,6 +120,7 @@
 - [ ] Implement config with schema validation
 
 ### Testing Infrastructure
+
 - [ ] Set up Jest for all packages
 - [ ] Configure Playwright for E2E
 - [ ] Create test data factories with valid schemas
@@ -117,6 +129,7 @@
 - [ ] Create parsing test utilities
 
 ### CI/CD
+
 - [ ] Set up GitHub Actions for testing
 - [ ] Configure test matrix for packages
 - [ ] Set up build pipeline
@@ -124,6 +137,7 @@
 - [ ] Add schema compatibility checks
 
 ### Documentation
+
 - [ ] Create README.md with architecture overview
 - [ ] Document parsing patterns and examples
 - [ ] Create API documentation with schemas
@@ -132,4 +146,5 @@
 - [ ] Create contribution guidelines
 
 ## Completed
+
 <!-- Completed items will be moved here with completion dates -->

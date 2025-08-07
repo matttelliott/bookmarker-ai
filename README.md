@@ -1,13 +1,15 @@
 # Bookmarker AI
 
-A comprehensive bookmarking platform with AI-powered features for organizing, discovering, and sharing web content.
+A comprehensive bookmarking platform with AI-powered features for organizing, discovering, and
+sharing web content.
 
 ## Features
 
 - **Smart Bookmarking**: Save bookmarks with automatic tagging via AI personas
 - **Content Discovery**: Explore public bookmarks through tags and user networks
 - **Multi-Platform**: Web app, browser extension, CLI tool, and upcoming mobile/desktop apps
-- **Content Aggregation**: Automatically import bookmarks from Reddit, Lemmy, HackerNews, and Twitter
+- **Content Aggregation**: Automatically import bookmarks from Reddit, Lemmy, HackerNews, and
+  Twitter
 - **AI Personas**: Customizable AI agents that analyze and categorize your bookmarks
 - **Privacy-First**: Choose between private and public bookmarks
 
@@ -24,7 +26,8 @@ A comprehensive bookmarking platform with AI-powered features for organizing, di
 
 ## Architecture
 
-This project follows a **Parse, Don't Validate** philosophy and strict **Test-Driven Development (TDD)**.
+This project follows a **Parse, Don't Validate** philosophy and strict **Test-Driven Development
+(TDD)**.
 
 ### Project Structure
 
@@ -122,21 +125,22 @@ npm run test:coverage
 5. **Add E2E tests** for user-facing features
 
 Example:
+
 ```typescript
 // 1. Test first
 test('should parse bookmark with defaults', () => {
-  const result = parseBookmark({ url: 'https://example.com' });
-  expect(result.title).toBe('example.com'); // auto-extracted
-});
+  const result = parseBookmark({ url: 'https://example.com' })
+  expect(result.title).toBe('example.com') // auto-extracted
+})
 
 // 2. Schema with parsing
 const BookmarkSchema = z.object({
   url: z.string().url(),
-  title: z.string().transform(val => val || extractDomain(url))
-});
+  title: z.string().transform((val) => val || extractDomain(url)),
+})
 
 // 3. Use safeParse for graceful handling
-const result = BookmarkSchema.safeParse(data);
+const result = BookmarkSchema.safeParse(data)
 ```
 
 ## API Documentation
@@ -180,7 +184,8 @@ The Firefox-first browser extension allows quick bookmarking of the current page
 3. Choose privacy setting (public/private)
 4. Save
 
-The extension prioritizes Firefox's WebExtensions API and user privacy, with cross-browser compatibility where possible.
+The extension prioritizes Firefox's WebExtensions API and user privacy, with cross-browser
+compatibility where possible.
 
 ## Contributing
 
