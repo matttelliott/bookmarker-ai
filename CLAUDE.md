@@ -22,6 +22,7 @@ Bookmarker-AI is a comprehensive bookmarking platform with AI-powered features, 
 - **Use Jest for unit/integration tests**
 - **Use Playwright for E2E tests that verify user workflows**
 - **Tests are documentation - they show how the code should be used**
+- **In test files and test files only, prefer using type assertions over conditional logic**
 
 ### Test File Organization
 ```
@@ -398,6 +399,10 @@ export function BookmarkCard(props: unknown) {
 - **Result Types**: Return Result<T, E> instead of throwing
 - **Pattern Matching**: Use ts-pattern to handle all cases
 - **Functional Style**: Use lodash-fp for data transformation
+- **Function Naming**: 
+  - Use imperative mood for most functions (e.g., `parseBookmark`, `validateUser`, `fetchData`)
+  - Only capitalize factory functions that construct typed objects (e.g., `Success()`, `Failure()`)
+  - Very few capitalized functions - reserve for Result types and similar constructs
 
 ### Development Workflow
 
@@ -423,3 +428,4 @@ export function BookmarkCard(props: unknown) {
 - Minimum 80% code coverage
 - E2E tests run on staging environment
 - No code deploys without passing tests
+```
