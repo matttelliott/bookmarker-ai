@@ -121,8 +121,38 @@ bookmarker-ai/
 │       ├── utils/     # Shared utilities (using lodash-fp, date-fns)
 │       └── validation/# Zod parsing helpers
 ├── e2e/               # Playwright E2E tests
+├── docker-compose.yml # Main compose file for full stack
 └── package.json       # Workspace configuration
 ```
+
+### Docker Infrastructure
+
+**IMPORTANT: All applications MUST have Dockerfiles for deployment and local development.**
+
+```
+bookmarker-ai/
+├── docker-compose.yml           # Full stack: all services, databases, Redis, etc.
+├── docker-compose.dev.yml       # Development overrides
+├── docker-compose.test.yml      # E2E test environment
+├── apps/
+│   ├── api/
+│   │   ├── Dockerfile          # Multi-stage build for NestJS
+│   │   └── docker-compose.yml  # API + Postgres + Redis
+│   ├── web/
+│   │   ├── Dockerfile          # Multi-stage build for Angular
+│   │   └── docker-compose.yml  # Web app + API dependency
+│   └── cli/
+│       └── Dockerfile          # CLI tool container
+```
+
+Key Docker requirements:
+
+- Multi-stage builds for optimized production images
+- Layer caching for faster rebuilds
+- Environment-specific compose files
+- Health checks for all services
+- Volume mounts for development hot-reload
+- Network isolation between services
 
 ## Core Architectural Principles
 

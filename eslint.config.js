@@ -22,7 +22,7 @@ export default tseslint.config(
       '**/.next/**',
       '**/*.d.ts',
       '.prettierrc.js',
-      'jest.config.js',
+      '**/jest.config.js',
       'jest.setup.ts',
       'eslint.config.js',
     ],
@@ -134,9 +134,6 @@ export default tseslint.config(
       '@typescript-eslint/unified-signatures': 'error',
       '@typescript-eslint/no-shadow': 'error',
 
-      // Semicolons - using stylistic plugin
-      'semi': ['error', 'never'],
-
       // General JavaScript - STRICT
       'no-console': 'error',
       'no-debugger': 'error',
@@ -183,13 +180,23 @@ export default tseslint.config(
     },
   },
 
+  // Angular component files
+  {
+    files: ['**/app/**/*.ts', '**/main.ts'],
+    rules: {
+      '@typescript-eslint/no-extraneous-class': 'off', // Angular components can be empty
+      '@typescript-eslint/use-unknown-in-catch-callback-variable': 'off', // Angular bootstrap
+    },
+  },
+
   // Test files overrides
   {
-    files: ['**/*.spec.ts', '**/*.test.ts'],
+    files: ['**/*.spec.ts', '**/*.test.ts', '**/setup-jest.ts'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-deprecated': 'off', // Angular test utilities
       'max-lines-per-function': 'off',
       'max-statements': 'off',
       'max-lines': ['error', { max: 500, skipBlankLines: true, skipComments: true }],
