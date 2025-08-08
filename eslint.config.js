@@ -191,6 +191,15 @@ export default tseslint.config(
     },
   },
 
+  // NestJS API files
+  {
+    files: ['apps/api/**/*.ts'],
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'off', // NestJS dependency injection doesn't work with type imports
+      '@typescript-eslint/no-extraneous-class': 'off', // NestJS modules can be empty
+    },
+  },
+
   // Test files overrides
   {
     files: ['**/*.spec.ts', '**/*.test.ts', '**/setup-jest.ts'],
