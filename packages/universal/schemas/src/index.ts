@@ -1,7 +1,8 @@
-// Export Result type utilities
 export * from './result'
-
-// Future exports will include:
-// - Zod schemas for all domain models
-// - Parsing utilities
-// - Type derivations
+export * from './bookmark'
+export * from './user-bookmark'
+export * from './user-bookmark-tag'
+export * from './bookmark-tag'
+export * from './tag'
+export * from './user'
+export * from './persona'

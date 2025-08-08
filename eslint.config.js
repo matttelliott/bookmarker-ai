@@ -93,6 +93,14 @@ export default tseslint.config(
           format: ['camelCase', 'UPPER_CASE'],
         },
         {
+          selector: 'variable',
+          filter: {
+            regex: 'Schema$',
+            match: true,
+          },
+          format: ['PascalCase'],
+        },
+        {
           selector: 'parameter',
           format: ['camelCase'],
           leadingUnderscore: 'allow',
